@@ -1,11 +1,16 @@
 //variables
-let i = 0;
+let winCount = 0;
+let lostCount = 0;
+let drawCount = 0;
+
+for (cnt = 0; cnt < 5; cnt ++) {
 //prompt for player choicef
 let playerChoice = prompt("Rock, Paper, or Scissors?").toLowerCase();
 let upPlayerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1);
 
 //generating comptuer choice
 function getComputerChoice() {
+    let i = 0;
     i = Math.floor(Math.random() * 3);
     let compChoice;
     if (i == 0) {
@@ -19,19 +24,22 @@ function getComputerChoice() {
     }
     return compChoice;
 }
-
+//Output for decision
 function youWin(upPlayerChoice, compChoice) {
-    return "You won! " + upPlayerChoice + " beats " + compChoice;
+    winCount++
+    return "You won! " + upPlayerChoice + " beats " + compChoice
 }
 function youLost(upPlayerChoice, compChoice) {
-    return "You lost! " + compChoice + " beats " + upPlayerChoice;
+    lostCount++
+    return "You lost! " + compChoice + " beats " + upPlayerChoice
 }
-
+//Glboalizing variable
     const compChoice = getComputerChoice();
-
+//Decision check
 function playGame(compChoice, upPlayerChoice) {
     if (upPlayerChoice == compChoice) {
-        "You drew! " + upPlayerChoice + " is the same as " + compChoice
+        drawCount++
+        return "You drew! " + upPlayerChoice + " is the same as " + compChoice
     }
     else if (upPlayerChoice == "Rock" && compChoice == "Paper") {
         return youLost(upPlayerChoice, compChoice)
@@ -53,3 +61,24 @@ function playGame(compChoice, upPlayerChoice) {
 }
 
 console.log(playGame(compChoice, upPlayerChoice))
+
+function game(lostCount, winCount) {
+    if (winCount > lostCount) {
+        console.log("Lost count: " + lostCount);
+        console.log("Win count: " + winCount);
+        return "Congrats, you won this BO5!"
+    }
+    else if (winCount < lostCount ) {
+        console.log("Lost count: " + lostCount);
+        console.log("Win count: " + winCount);
+        return "Oh NOOO! You lost this BO5!"
+    }
+    else { 
+        console.log("Lost count: " + lostCount);
+        console.log("Win count: " + winCount);
+        console.log("Draw count: " + drawCount);
+        return "Wow... You tied?"
+    }
+}
+}
+console.log(game(lostCount, winCount))
