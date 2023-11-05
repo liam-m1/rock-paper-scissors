@@ -8,11 +8,8 @@ let drawCount = 0;
 document.addEventListener("DOMContentLoaded", function() {
     const selection = document.querySelector(".selection");
 
-    playerChoice = selection.addEventListener("click", (event) => {
-    let target = event.target.id;
-    console.log(target);
-    return target;
-    });
+selection.addEventListener("click", (event) => {
+let playerChoice = event.target.id;
 
 //generating comptuer choice
 function getComputerChoice() {
@@ -30,62 +27,80 @@ function getComputerChoice() {
     }
     return compChoice;
 }
-//Output for decision
-function youWin(playerChoice, compChoice) {
-    winCount++
-    return "You won! " + playerChoice + " beats " + compChoice
-}
-function youLost(playerChoice, compChoice) {
-    lostCount++
-    return "You lost! " + compChoice + " beats " + playerChoice
-}
+
 //Glboalizing variable
-    const compChoice = getComputerChoice();
+
+const compChoice = getComputerChoice();
+console.log(compChoice + playerChoice);
+
+//Output for decision
+const results = document.querySelector(".result");
+
+function youWin() {
+    winCount++
+    const win = document.createElement("h3");
+    win.textContent = "You won! " + playerChoice + " beats " + compChoice;
+    results.appendChild(win);
+}
+function youLost() {
+    lostCount++
+    const lost = document.createElement("h3");
+    lost.textContent = "You lost! " + compChoice + " beats " + playerChoice;
+    results.appendChild(lost)
+}
 //Decision check
 function playGame(compChoice, playerChoice) {
     if (playerChoice == compChoice) {
         drawCount++
-        return "You drew! " + playerChoice + " is the same as " + compChoice
+        const draw = document.createElement("h3");
+        draw.textContent = "You drew";
+        results.appendChild(draw);
+        return
     }
     else if (playerChoice == "Rock" && compChoice == "Paper") {
-        return youLost(playerChoice, compChoice)
+        return youLost()
     }
     else if (playerChoice == "Rock" && compChoice == "Scissors") {
-        return youWin(playerChoice, compChoice)
+        return youWin()
     }
     else if (playerChoice == "Paper" && compChoice == "Scissors") {
-        return youLost(playerChoice, compChoice)
+        return youLost()
     }
     else if (playerChoice == "Paper" && compChoice == "Rock") {
-        return youWin(playerChoice, compChoice)
+        return youWin()
     }
     else if (playerChoice == "Scissors" && compChoice == "Rock")
-        return youLost(playerChoice, compChoice)
+        return youLost()
     else if (playerChoice == "Scissors" && compChoice == "Paper") {
-        return youWin(playerChoice, compChoice)
+        return youWin()
     }
 }
 
-const results = document.createElement("div");
+    playGame(compChoice, playerChoice);
+    if (winCount + drawCount + lostCount == 5) {
+        game(lostCount, winCount, drawCount);
+    }
 
-console.log(playGame(compChoice, playerChoice))
 
 function game(lostCount, winCount) {
+    const finalResults = document.createElement("h1");
+    finalResults.textContent = "Win count: " + winCount + " Lost count: " + lostCount;
+    results.appendChild(finalResults);
     if (winCount > lostCount) {
-        console.log("Lost count: " + lostCount);
-        console.log("Win count: " + winCount);
-        return "Congrats, you won this BO5!"
+        const wonResult = document.createElement("h1");
+        wonResult.textContent = "Congrats, you won this BO5!";
+        results.appendChild(wonResult);
     }
     else if (winCount < lostCount ) {
-        console.log("Lost count: " + lostCount);
-        console.log("Win count: " + winCount);
-        return "Oh NOOO! You lost this BO5!"
+        const lostResult = document.createElement("h1");
+        lostResult.textContent = "Oh NOOO! You lost this BO5!";
+        results.appendChild(lostResult);
     }
     else { 
-        console.log("Lost count: " + lostCount);
-        console.log("Win count: " + winCount);
-        console.log("Draw count: " + drawCount);
-        return "Wow... You tied?"
+        const drawResult = document.createElement("h1");
+        drawResult.textContent = "Wow... You tied?";
+        results.appendChild(drawResult);
     }
 }
+});
 });
