@@ -3,10 +3,16 @@ let winCount = 0;
 let lostCount = 0;
 let drawCount = 0;
 
-for (cnt = 0; cnt < 5; cnt ++) {
 //prompt for player choicef
-let playerChoice = prompt("Rock, Paper, or Scissors?").toLowerCase();
-let upPlayerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1);
+
+document.addEventListener("DOMContentLoaded", function() {
+    const selection = document.querySelector(".selection");
+
+    playerChoice = selection.addEventListener("click", (event) => {
+    let target = event.target.id;
+    console.log(target);
+    return target;
+    });
 
 //generating comptuer choice
 function getComputerChoice() {
@@ -25,42 +31,44 @@ function getComputerChoice() {
     return compChoice;
 }
 //Output for decision
-function youWin(upPlayerChoice, compChoice) {
+function youWin(playerChoice, compChoice) {
     winCount++
-    return "You won! " + upPlayerChoice + " beats " + compChoice
+    return "You won! " + playerChoice + " beats " + compChoice
 }
-function youLost(upPlayerChoice, compChoice) {
+function youLost(playerChoice, compChoice) {
     lostCount++
-    return "You lost! " + compChoice + " beats " + upPlayerChoice
+    return "You lost! " + compChoice + " beats " + playerChoice
 }
 //Glboalizing variable
     const compChoice = getComputerChoice();
 //Decision check
-function playGame(compChoice, upPlayerChoice) {
-    if (upPlayerChoice == compChoice) {
+function playGame(compChoice, playerChoice) {
+    if (playerChoice == compChoice) {
         drawCount++
-        return "You drew! " + upPlayerChoice + " is the same as " + compChoice
+        return "You drew! " + playerChoice + " is the same as " + compChoice
     }
-    else if (upPlayerChoice == "Rock" && compChoice == "Paper") {
-        return youLost(upPlayerChoice, compChoice)
+    else if (playerChoice == "Rock" && compChoice == "Paper") {
+        return youLost(playerChoice, compChoice)
     }
-    else if (upPlayerChoice == "Rock" && compChoice == "Scissors") {
-        return youWin(upPlayerChoice, compChoice)
+    else if (playerChoice == "Rock" && compChoice == "Scissors") {
+        return youWin(playerChoice, compChoice)
     }
-    else if (upPlayerChoice == "Paper" && compChoice == "Scissors") {
-        return youLost(upPlayerChoice, compChoice)
+    else if (playerChoice == "Paper" && compChoice == "Scissors") {
+        return youLost(playerChoice, compChoice)
     }
-    else if (upPlayerChoice == "Paper" && compChoice == "Rock") {
-        return youWin(upPlayerChoice, compChoice)
+    else if (playerChoice == "Paper" && compChoice == "Rock") {
+        return youWin(playerChoice, compChoice)
     }
-    else if (upPlayerChoice == "Scissors" && compChoice == "Rock")
-        return youLost(upPlayerChoice, compChoice)
-    else if (upPlayerChoice == "Scissors" && compChoice == "Paper") {
-        return youWin(upPlayerChoice, compChoice)
+    else if (playerChoice == "Scissors" && compChoice == "Rock")
+        return youLost(playerChoice, compChoice)
+    else if (playerChoice == "Scissors" && compChoice == "Paper") {
+        return youWin(playerChoice, compChoice)
     }
 }
 
-console.log(playGame(compChoice, upPlayerChoice))
+const results = document.createElement("div");
+
+console.log(playGame(compChoice, playerChoice))
 
 function game(lostCount, winCount) {
     if (winCount > lostCount) {
@@ -80,5 +88,4 @@ function game(lostCount, winCount) {
         return "Wow... You tied?"
     }
 }
-}
-console.log(game(lostCount, winCount))
+});
