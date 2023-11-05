@@ -31,7 +31,6 @@ function getComputerChoice() {
 //Glboalizing variable
 
 const compChoice = getComputerChoice();
-console.log(compChoice + playerChoice);
 
 //Output for decision
 const results = document.querySelector(".result");
